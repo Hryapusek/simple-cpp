@@ -1,0 +1,22 @@
+----------------------
+Default constructor called
+Copy constructor called
+Move constructor called
+
+---------- 1 -----------
+Default constructor called
+Copy assignment operator called
+Default constructor called
+Move assignment operator called
+
+---------- 2 -----------
+
+---------- Copy Ellision -----------
+---------- Calling func1() ----------
+Default constructor called
+
+---------- Calling func2(true) ----------
+Default constructor called
+Default constructor called
+Copy constructor called
+----------------------

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <vector>
 
 class Example {
 public:
@@ -29,6 +30,10 @@ public:
         std::cout << "Move assignment operator called\n";
         return *this;
     }
+
+    ~Example() {
+        std::cout << "Destructor called\n";
+    }
 };
 
 // Copy elision won't work here
@@ -47,7 +52,13 @@ Example func2(bool condition) {
 int main() {
     std::cout << "----------------------" << std::endl;
     Example ex1;               // Default constructor
+    std::vector<int> vec;
+    std::vector<int> vec1(10, 1);
+
     Example ex2 = ex1;         // Copy constructor
+    Example ex21(ex1);         // Copy constructor
+    Example ex22{ex1};         // Copy constructor
+
     Example ex3 = std::move(ex1); // Move constructor
 
     std::cout << "---------- 1 -----------" << std::endl;
