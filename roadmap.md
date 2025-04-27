@@ -1,3 +1,18 @@
+- Массивы функции и указатели
+- Ссылки
+- Константы. Константные указатели и ссылки
+- Приведение типов
+- Перегрузка операторов
+- enum
+- Конструкторы и списки инициализации
+- Правило трех
+- const static explicit
+- наследование
+- множественное и виртуальное наследование
+- виртуальные функции, полиморфизм, абстрактные классы
+- dynamic_cast
+- шаблоны
+
 1. Fundamentals (Warm-up Tasks)
 ✅ Task 1.1: Write a program that demonstrates pointer arithmetic and references.
 ✅ Task 1.2: Implement a swap function using references and pointers.
