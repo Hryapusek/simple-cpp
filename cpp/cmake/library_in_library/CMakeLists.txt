@@ -6,7 +6,7 @@ set(STANDALONE_NAME ${PROJECT_NAME}-standalone)
 
 add_executable(${STANDALONE_NAME})
 
-add_subdirectory(dependency)
+add_subdirectory(dependency_dir)
 
 target_sources(${STANDALONE_NAME}
   PRIVATE

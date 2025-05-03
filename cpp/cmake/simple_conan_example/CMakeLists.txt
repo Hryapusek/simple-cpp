@@ -4,7 +4,13 @@ project(dependency)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(STANDALONE_NAME ${PROJECT_NAME}-standalone)
 
+# Package has
+# Инклюды
+# Скомпилированная библиотека
+# dependencyConfig.cmake для подключения
+
 find_package(fmt REQUIRED)
+# add_subdirectory()
 
 add_executable(${STANDALONE_NAME})
 

@@ -8,22 +8,7 @@ from conan.tools.files import copy, rmdir
 class ExampleRecipe(ConanFile):
     name = "example"
     version = "0.0.1"
-
-    settings = "os", "compiler", "build_type"
-
-    exports_sources = "*", "!build/*", "!CMakeUserPresets.json"
-
-    options = {
-        'shared': [True, False],
-        'tests': [True, False],
-        'integration_tests': [True, False]
-    }
-
-    default_options = {
-        'shared': True,
-        'tests': False,
-        'integration_tests': False
-    }
+    settings = "os", "compiler", "build_type", "arch"
 
     @property
     def _min_cppstd(self):

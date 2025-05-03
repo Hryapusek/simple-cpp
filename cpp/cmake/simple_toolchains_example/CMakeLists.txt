@@ -11,7 +11,7 @@ target_sources(${STANDALONE_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
 
-target_compile_definitions(${STANDALONE_NAME} 
+target_compile_definitions(${STANDALONE_NAME}
   PRIVATE
     COMPILER_NAME_s0=${CMAKE_CXX_COMPILER_ID}
 )

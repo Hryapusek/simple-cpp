@@ -1,0 +1,12 @@
+{
+  "programs": [
+    {
+      "name": "SomeProgram",
+      "level": 1
+    },
+    {
+      "name": "AnotherProgram",
+      "level": 5
+    }
+  ]
+}
