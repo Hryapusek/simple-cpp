@@ -12,7 +12,7 @@ target_sources(${STANDALONE_NAME}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
-
+# cmake -S .. -B build -DCMAKE_SHARED_LIBS=OFF
 target_link_libraries(${STANDALONE_NAME}
   PRIVATE
     dependency

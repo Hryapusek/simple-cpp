@@ -8,6 +8,7 @@ set(STANDALONE_NAME ${PROJECT_NAME}-standalone)
 # Инклюды
 # Скомпилированная библиотека
 # dependencyConfig.cmake для подключения
+# CMAKE_PREFIX_PATH - в этой переменной пути для поиска Packages
 
 find_package(fmt REQUIRED)
 # add_subdirectory()
