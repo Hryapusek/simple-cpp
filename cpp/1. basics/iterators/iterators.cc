@@ -198,11 +198,20 @@ void example_why_iterators_might_be_good()
     while (it != array.end()) {
       if (*it % 2 == 0) {
         it = array.erase(it);
+        // 1 2 3 4 5 6
+        // 1 x 3 4 5 6
+        // it -> x
+        // AFTER DELETE:
+        // 1 3 4 5 6
+        // it -> 3
       } else {
         ++it;
       }
     }
 
+    // foreach
+    // array.begin()
+    // array.end()
     for (int num : array) {
       std::cout << num << " ";
     }
@@ -216,17 +225,17 @@ void example_why_iterators_might_be_good()
 void example_dereferencing_invalidated_iterator()
 {
   std::vector<int> array = {10, 20, 30, 40, 50};
-  int *data = new int[5];
-  int *ptr = data + 2;
-  delete[] data;
+  // int *data = new int[5];
+  // int *ptr = data + 2;
+  // delete[] data;
   
-  // valgrind
-  *ptr = 1;
+  // // valgrind
+  // *ptr = 1;
 
-  int *new_data = new int[10];
+  // int *new_data = new int[10];
 
   // An iterator to the beginning of the vector
-  auto it = array.begin();
+  std::vector<int>::iterator it = array.begin();
 
   // Modify the vector, causing reallocation
   array.push_back(60);
