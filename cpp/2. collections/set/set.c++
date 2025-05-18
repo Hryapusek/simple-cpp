@@ -14,6 +14,7 @@ int main() {
     // Компаратор возвращает "в правильном ли порядке стоят элементы a b"
     // true если в правильном
     // false если в неправильном
+    // strong ordering
     auto cmp = [](int a, int b) { return a > b; };
     std::set<int, decltype(cmp)> s5(cmp);
     s5 = {1, 2, 3, 4};  // Stored as {4, 3, 2, 1}
@@ -22,6 +23,18 @@ int main() {
     s1.insert(5);        // Single element
     s1.insert({6, 7, 8}); // Multiple elements
     {
+        {
+            // Old style
+            std::pair<int, double> p {1, 2.9};
+            p.first += 2; // 1
+            p.second -= 3; // 2.9
+            auto pair = s1.insert(5); // Returns pair<iterator, bool>
+            if (!pair.second) std::cout << "5 already exists!\n";
+            
+            auto it = pair.first;
+            auto success = pair.second;
+        }
+
         auto [it, success] = s1.insert(5); // Returns pair<iterator, bool>
         if (!success) std::cout << "5 already exists!\n";
     }
@@ -71,9 +84,12 @@ int main() {
         }
     };
 
+    Book b1, b2;
+    auto res = b1 < b2; // добавили возможность сравнивать книги
+
     std::set<Book> library;
-    library.insert({"C++ Primer", 45.99});
-    library.insert({"Effective C++", 39.99});
+    library.insert(Book {"C++ Primer", 45.99});
+    library.insert(Book {"Effective C++", 39.99});
 
     // ===== 8. PERFORMANCE NOTES =====
     // - insert/erase/find: O(log n)

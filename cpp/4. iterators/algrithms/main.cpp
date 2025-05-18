@@ -46,6 +46,7 @@ int main() {
 
     // === 4. std::count ===
     int count_fives = std::count(src.begin(), src.end(), 5);
+    // std::count_if()
     std::cout << "Number of fives: " << count_fives << "\n\n";  // 1
 
     // === 5. std::transform (modify in-place) ===
