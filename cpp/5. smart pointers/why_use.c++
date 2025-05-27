@@ -16,6 +16,7 @@ void raw_pointer_example() {
     // Problem 1: Manual deletion required
     // Forget this and you leak memory!
     delete raw;
+    raw = nullptr;
     
     // Problem 2: No ownership semantics
     Resource* raw2 = raw;  // Dangling pointer!
