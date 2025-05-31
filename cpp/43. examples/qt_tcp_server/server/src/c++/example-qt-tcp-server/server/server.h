@@ -1,18 +1,19 @@
 #pragma once
 #include <QTcpServer>
+#include <memory>
 
 class SimpleTcpServer : public QTcpServer {
   Q_OBJECT
 
 public:
-  SimpleTcpServer(QObject* parent = nullptr);
+  explicit SimpleTcpServer(QObject* parent = nullptr);
   ~SimpleTcpServer() override;
 
 protected:
   void incomingConnection(qintptr socketDescriptor) override;
 
 private:
-  void handleReadyRead(QTcpSocket* clientSocket);
+  void handleReadyRead(std::shared_ptr<QTcpSocket> clientSocket);
 
-  void handleDisconnected(QTcpSocket* clientSocket);
+  void handleDisconnected(std::shared_ptr<QTcpSocket> clientSocket);
 };

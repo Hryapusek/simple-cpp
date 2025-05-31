@@ -22,31 +22,13 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-if("${CMAKE_GENERATOR}" MATCHES "^Visual Studio")
-  set(CMAKE_GENERATOR_PLATFORM "x64" CACHE STRING "" FORCE)
-endif()
-
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
-
-if("${CMAKE_HOST_SYSTEM_NAME}" STREQUAL "Linux" AND MINGW AND NOT CYGWIN)
-  message(STATUS "[${PROJECT_FULL_NAME}] Mingw on linux detected. Statically linking universal C runtime library")
-
-  foreach(LANG C CXX)
-    set(CMAKE_${LANG}_STANDARD_LIBRARIES "${CMAKE_${LANG}_STANDARD_LIBRARIES} -lucrt")
-    message(STATUS "CMAKE_${LANG}_STANDARD_LIBRARIES: ${CMAKE_${LANG}_STANDARD_LIBRARIES}")
-  endforeach()
-endif()
 
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick QuickControls2 Widgets Qml Gui)
 
 add_executable(${PROJECT_NAME})
-add_executable(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
   PUBLIC
@@ -55,7 +37,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
   PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/qml/qml.qrc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/c++/${PROJECT_NAME}/server/server.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/c++/${PROJECT_NAME}/main.cc
   
@@ -70,18 +51,4 @@ target_link_libraries(${PROJECT_NAME}
   Qt${QT_VERSION_MAJOR}::Widgets
   Qt${QT_VERSION_MAJOR}::Qml
   Qt${QT_VERSION_MAJOR}::Gui
-)
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND}
-  -D SEARCH_DIR=${CMAKE_BINARY_DIR}
-  -D OUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}
-  -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/copy_dlls.cmake
-)
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_COMMAND}
-  -D SEARCH_DIR=${CMAKE_BINARY_DIR}
-  -D OUTPUT_DIR=${CMAKE_CURRENT_BINARY_DIR}
-  -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/copy_so.cmake
 )

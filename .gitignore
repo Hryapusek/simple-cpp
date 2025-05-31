@@ -3,3 +3,5 @@ compile_commands.json
 .cache
 .vscode
 *_build
+CMakePresets.json
+CMakeUserPresets.json

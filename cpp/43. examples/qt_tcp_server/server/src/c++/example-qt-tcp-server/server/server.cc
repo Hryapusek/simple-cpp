@@ -12,32 +12,41 @@ SimpleTcpServer::~SimpleTcpServer() { qDebug() << "Server is shutting down."; }
 
 void SimpleTcpServer::incomingConnection(qintptr socketDescriptor)
 {
-  auto clientSocket = std::make_shared<QTcpSocket>(this);
-  if(clientSocket->setSocketDescriptor(socketDescriptor)) {
-    qDebug() << "New client connected from:" << clientSocket->peerAddress().toString();
-    connect(
-      clientSocket.get(),
-      &QTcpSocket::readyRead,
-      this,
-      [this, clientSocket]() { handleReadyRead(clientSocket.get()); }
-    );
-    connect(
-      clientSocket.get(),
-      &QTcpSocket::disconnected,
-      this,
-      [this, clientSocket]() { handleDisconnected(clientSocket.get()); }
-    );
+  auto clientSocket = std::make_shared<QTcpSocket>();
+  if (not clientSocket->setSocketDescriptor(socketDescriptor))
+  {
+    qWarning() << "Failed to set socket descriptor for client:" << socketDescriptor;
+    return;
   }
+  qDebug() << "New client connected from:" << clientSocket->peerAddress().toString();
+  connect(
+    clientSocket.get(), // QTcpSocket* - инициатор события
+    &QTcpSocket::readyRead, // Какое событие
+    [this, clientSocket]() { handleReadyRead(clientSocket); } // Действие при событии
+  );
+  connect(
+    clientSocket.get(),
+    &QTcpSocket::disconnected,
+    [this, clientSocket]() { handleDisconnected(clientSocket); }
+  );
 }
 
-void SimpleTcpServer::handleReadyRead(QTcpSocket* clientSocket)
+void SimpleTcpServer::handleReadyRead(std::shared_ptr<QTcpSocket> clientSocket)
 {
   QByteArray data = clientSocket->readAll();
   qDebug() << "Received:" << data;
-  clientSocket->write("Echo: " + data);  // Echo back the received data
+  qint64 bytesWritten = clientSocket->write("Echo: " + data);  // Echo back the received data
+  if (bytesWritten == -1)
+  {
+    qWarning() << "Failed to write data to client:" << clientSocket->peerAddress().toString();
+  }
+  else
+  {
+    qDebug() << "Successfully wrote" << bytesWritten << "bytes to client.";
+  }
 }
 
-void SimpleTcpServer::handleDisconnected(QTcpSocket* clientSocket)
+void SimpleTcpServer::handleDisconnected(std::shared_ptr<QTcpSocket> clientSocket)
 {
   qDebug() << "Client disconnected:" << clientSocket->peerAddress().toString();
 }
