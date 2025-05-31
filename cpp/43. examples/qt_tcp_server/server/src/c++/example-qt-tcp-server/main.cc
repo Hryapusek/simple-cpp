@@ -1,5 +1,5 @@
 #include <QCoreApplication>
-#include <gui-dosimeter/server/server.h>
+#include <example-qt-tcp-server/server/server.h>
 
 int main(int argc, char* argv[]) {
   QCoreApplication app(argc, argv);

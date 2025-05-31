@@ -1,4 +1,4 @@
-#include <gui-dosimeter/server/server.h>
+#include <example-qt-tcp-server/server/server.h>
 
 #include <QCoreApplication>
 #include <QTcpSocket>
@@ -12,20 +12,20 @@ SimpleTcpServer::~SimpleTcpServer() { qDebug() << "Server is shutting down."; }
 
 void SimpleTcpServer::incomingConnection(qintptr socketDescriptor)
 {
-  auto clientSocket = std::make_unique<QTcpSocket>(this);
+  auto clientSocket = std::make_shared<QTcpSocket>(this);
   if(clientSocket->setSocketDescriptor(socketDescriptor)) {
     qDebug() << "New client connected from:" << clientSocket->peerAddress().toString();
     connect(
       clientSocket.get(),
       &QTcpSocket::readyRead,
       this,
-      [this, clientSocket = clientSocket.get()]() { handleReadyRead(clientSocket); }
+      [this, clientSocket]() { handleReadyRead(clientSocket.get()); }
     );
     connect(
       clientSocket.get(),
       &QTcpSocket::disconnected,
       this,
-      [this, clientSocket = clientSocket.release()]() { handleDisconnected(clientSocket); }
+      [this, clientSocket]() { handleDisconnected(clientSocket.get()); }
     );
   }
 }
@@ -40,5 +40,4 @@ void SimpleTcpServer::handleReadyRead(QTcpSocket* clientSocket)
 void SimpleTcpServer::handleDisconnected(QTcpSocket* clientSocket)
 {
   qDebug() << "Client disconnected:" << clientSocket->peerAddress().toString();
-  clientSocket->deleteLater();
 }

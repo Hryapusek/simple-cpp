@@ -8,7 +8,7 @@ set(CMAKE_BUILD_RPATH "./libs")
 
 include_guard(GLOBAL)
 
-project(example-qt-tcp-server
+project(example-qt-tcp-client
   VERSION 0.0.1
   LANGUAGES CXX
 )
@@ -56,7 +56,7 @@ target_include_directories(${PROJECT_NAME}
 target_sources(${PROJECT_NAME}
   PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src/qml/qml.qrc
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/c++/${PROJECT_NAME}/server/server.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/c++/${PROJECT_NAME}/client/client.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/src/c++/${PROJECT_NAME}/main.cc
   
 )
