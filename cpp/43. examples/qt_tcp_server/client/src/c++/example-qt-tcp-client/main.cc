@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <example-qt-tcp-client/client/client.h>
+#include <qcoreapplication.h>
 
 
 int main(int argc, char* argv[]) {

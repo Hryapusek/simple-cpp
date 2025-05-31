@@ -1,8 +1,10 @@
 #pragma once
+
+#include <memory>
+
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QDebug>
-#include <memory>
 
 class SimpleTcpClient : public QObject {
   Q_OBJECT

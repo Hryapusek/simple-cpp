@@ -1,4 +1,5 @@
 #include <example-qt-tcp-client/client/client.h>
+#include <qtcpsocket.h>
 #include <QCoreApplication>
 #include <QTcpSocket>
 #include <QDebug>
