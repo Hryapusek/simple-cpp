@@ -1,0 +1,27 @@
+[linux]
+default:
+  @echo "Usage: just <command> [options]"
+  @just --choose
+
+@clean:
+  echo "Cleaning..."
+  rm -rf build
+
+@configure BUILD_TYPE="Debug":
+  echo "Configuring in {{BUILD_TYPE}} mode"
+  conan install . --build=missing --settings=build_type={{BUILD_TYPE}} -o "*:shared=False"
+
+@build BUILD_TYPE="Debug" FOLDER=".":
+  echo "Building in {{BUILD_TYPE}} mode"
+  conan build . --output-folder={{FOLDER}} --build=missing --settings=build_type={{BUILD_TYPE}} -o "*:shared=False"
+
+# These commands lead to GLIBC incorrect linking version.
+# @cross-compile-configure BUILD_TYPE="Debug":
+#   echo "Cross compiling for ARM in {{BUILD_TYPE}} mode"
+#   cp docker/conan/profile/* ~/.conan2/profiles/
+#   conan install . --build=missing --settings=build_type=Debug  -o "*:shared=False" --profile:host=conan_arm_s0 --profile:build=default
+
+# @cross-compile BUILD_TYPE="Debug":
+#   echo "Cross compiling for ARM in {{BUILD_TYPE}} mode"
+#   cp docker/conan/profile/* ~/.conan2/profiles/
+#   conan build . --build=missing --settings=build_type=Debug  -o "*:shared=False" --profile:host=conan_arm_s0 --profile:build=default

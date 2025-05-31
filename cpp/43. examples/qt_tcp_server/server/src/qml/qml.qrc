@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main/Main.qml</file>
+        <file>Main/InstantSpectrumTab.qml</file>
+        <file>Main/SpectrumGraphic.qml</file>
+    </qresource>
+</RCC>
